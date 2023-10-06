@@ -197,7 +197,7 @@ class Game {
       while (true) {
         const mainPrompt = prompt("Select option? [1, 2, 3, 0]:\t");
         if (mainPrompt == 1) {
-          // this.playGame();
+          this.playGame();
           return;
         } else if (mainPrompt == 2) {
           this.doAdmin();
@@ -227,6 +227,80 @@ class Game {
       } else if (adminChoice == 4) {
         this.deleteQuestion();
       }
+    }
+
+    playGame() {
+      this.userName = prompt("Username: ");
+  
+      const arrayOfNums = [];
+      fs.readFile(this.fileString, "utf-8", (err, data) => {
+        const questions = JSON.parse(data);
+        var i = 0;
+        while (arrayOfNums.length < 10) {
+          const temp = Util.getRandomNumberBetween(0, questions.length);
+          if (!arrayOfNums.includes(temp)) {
+            arrayOfNums[i++] = temp;
+          }
+        }
+  
+        for (let q = 0; q < 10; q++) {
+          console.log(questions[arrayOfNums[q]].question);
+          for (let ch = 0; ch < 4; ch++) {
+            console.log(
+              this.lilArray[ch] + "\t" + questions[arrayOfNums[q]].content[ch]
+            );
+          }
+  
+          let guess = prompt(this.getQuestionHint());
+          let corr = this.lilArray[questions[arrayOfNums[q]].correct];
+          let incorrectArray = [];
+          let shuffledIncorrectArray = [];
+  
+          if (guess == 50 && this.fifty50 == true) {
+            this.getFifty(
+              corr,
+              incorrectArray,
+              shuffledIncorrectArray,
+              questions[arrayOfNums[q]]
+            );
+  
+            guess = prompt("Surely now you'll get it...");
+          } else if (guess == 50 && this.fifty50 == false) {
+            console.log("You've already used your 50/50!");
+            q--;
+            continue;
+          }
+  
+          if (guess.toLowerCase() == "dial" && this.dialFriend == true) {
+              this.useDial(corr, incorrectArray, shuffledIncorrectArray);
+            q--;
+            continue;
+          }
+          if (guess.toLowerCase() == "dial" && this.dialFriend == false) {
+            console.log("You've already dialed a friend!");
+            q--;
+            continue;
+          }
+  
+          if (guess.toLowerCase() == "ask" && this.askAudience == true) {
+            this.useAsk(questions[arrayOfNums[q]])
+            q--;
+            continue;
+          }
+          if (guess == corr) {
+            this.userScore++;
+            console.log("Correct! Score: " + this.userScore);
+            console.log("Next question...");
+          } else {
+            console.log(
+              "Incorrect answer! :( The correct answer was " +
+                this.lilArray[questions[arrayOfNums[q]].correct]
+            );
+            break;
+          }
+        }
+        this.setHighScores(this.userName, this.userScore);
+      });
     }
 
     main() {
