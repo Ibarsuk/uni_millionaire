@@ -33,6 +33,18 @@ class Game {
         fs.writeFileSync(this.highScoresFileString, placeholders);
       }
     }
+
+    listQuestionsAndAnswers() {
+      JSON.parse(fs.readFileSync(this.fileString, "utf-8")).forEach((question) =>
+        console.log(question.question + "\t" + question.content[question.correct])
+      );
+    }
+  
+    listQuestions() {
+      JSON.parse(fs.readFileSync(this.fileString, "utf-8")).forEach((question) =>
+        console.log(question.question)
+      );
+    }
 }
 
 module.exports = Game;
