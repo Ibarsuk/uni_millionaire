@@ -200,7 +200,7 @@ class Game {
           // this.playGame();
           return;
         } else if (mainPrompt == 2) {
-          // this.doAdmin();
+          this.doAdmin();
           return;
         } else if (mainPrompt == 3) {
           this.printHighScores();
@@ -209,6 +209,23 @@ class Game {
           console.log("See you again soon! ");
           return;
         }
+      }
+    }
+
+    doAdmin() {
+      console.log(
+        "Welcome to Admin. Please select from the following options: \n[1] List Questions (If you're honest)\n[2] List Questions & Answers (If you're not)\n[3] Add Question\n[4] Delete Question\n[*any other key*] Cancel"
+      );
+      let adminChoice = prompt("Enter choice:\t");
+  
+      if (adminChoice == 1) {
+        this.listQuestions();
+      } else if (adminChoice == 2) {
+        this.listQuestionsAndAnswers();
+      } else if (adminChoice == 3) {
+        this.addQuestion();
+      } else if (adminChoice == 4) {
+        this.deleteQuestion();
       }
     }
 
