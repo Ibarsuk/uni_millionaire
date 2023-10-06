@@ -15,6 +15,24 @@ class Game {
     this.userName = null;
     this.userScore = 0;
   }
+
+    initialiseGame() {
+      const placeholders =
+        "[\n" +
+        '{ "name": "****", "score": 0 },\n' +
+        '{ "name": "****", "score": 0 },\n' +
+        '{ "name": "****", "score": 0 },\n' +
+        '{ "name": "****", "score": 0 },\n' +
+        '{ "name": "****", "score": 0 }\n' +
+        "]";
+  
+      const data = fs.readFileSync(this.highScoresFileString, "utf-8");
+      const scoresJSON = JSON.parse(data);
+      if (scoresJSON == "") {
+        console.log("EMPT");
+        fs.writeFileSync(this.highScoresFileString, placeholders);
+      }
+    }
 }
 
 module.exports = Game;
