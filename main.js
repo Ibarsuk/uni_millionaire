@@ -131,6 +131,60 @@ class Game {
       }
       return helpText + "Take a guess... [a],[b],[c],[d]:\t";
     }
+
+    getFifty(correct, incorrectArray, shuffledIncorrectArray, question) {
+      this.fifty50 = false;
+      incorrectArray = this.lilArray.filter((e) => e !== correct);
+      shuffledIncorrectArray = Util.shuffleArray(incorrectArray);
+      let incorrect2 = shuffledIncorrectArray[0];
+      let incorrect2Pos = this.lilArray.indexOf(incorrect2);
+      Util.shuffleArray([
+        [correct, question.content[question.correct]],
+        [incorrect2, question.content[incorrect2Pos]],
+      ]).forEach((el) => console.log(el[0] + "\t" + el[1]));
+    }
+
+    useDial(correct, incorrectArray, shuffledIncorrectArray) {
+      this.dialFriend = false;
+      const chance = Util.getRandomNumberBetween(1, 10);
+      let dialText = "You're friend is 80% sure the answer is ";
+      if (chance > 2) {
+        dialText += correct;
+      } else {
+        incorrectArray = this.lilArray.filter((e) => e !== correct);
+        shuffledIncorrectArray = Util.shuffleArray(incorrectArray);
+        let incorrect2 = shuffledIncorrectArray[0];
+  
+        dialText += incorrect2;
+      }
+      console.log(dialText);
+    }
+
+    useAsk(question) {
+      const audienceCount = 100;
+            let countArray = [0, 0, 0, 0];
+            this.askAudience = false;
+            let chance = 0;
+            for (let i = 0; i < audienceCount; i++) {
+              chance = Util.getRandomNumberBetween(1, 10);
+              if (chance >= 4) {
+                countArray[question.correct]++;
+              } else {
+                countArray[Util.getRandomNumberBetween(0, 3)]++;
+              }
+            }
+            console.log(
+              "The votes are in: out of 100 people, " +
+                countArray[0] +
+                " say 'a', " +
+                countArray[1] +
+                " say 'b', " +
+                countArray[2] +
+                " say 'c', " +
+                countArray[3] +
+                " say 'd'"
+            );
+    }
 }
 
 module.exports = Game;
