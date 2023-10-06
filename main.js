@@ -78,6 +78,20 @@ class Game {
         console.log(question.question)
       );
     }
+
+    getQuestionHint() {
+      let helpText = "";
+      if (this.fifty50) {
+        helpText += "[50]=50/50 | ";
+      }
+      if (this.askAudience) {
+        helpText += "[ask]=Ask the Audience | ";
+      }
+      if (this.dialFriend) {
+        helpText += "[dial]=Dial a Friend | ";
+      }
+      return helpText + "Take a guess... [a],[b],[c],[d]:\t";
+    }
 }
 
 module.exports = Game;
