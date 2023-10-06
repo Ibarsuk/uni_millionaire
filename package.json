@@ -1,0 +1,28 @@
+{
+  "name": "millionaire",
+  "version": "1.0.0",
+  "description": "millionaire game",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ibarsuk/uni_millionaire.git"
+  },
+  "author": "Ibars",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ibarsuk/uni_millionaire/issues"
+  },
+  "homepage": "https://github.com/Ibarsuk/uni_millionaire#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
