@@ -185,6 +185,37 @@ class Game {
                 " say 'd'"
             );
     }
+
+    printMainMenu() {
+      const mainMenuText =
+        "\nMillionaire Game\n====================\n\n[1] Play Millionaire Game\n[2] Game Admin\n[3] Top Five Scores\n[0] CANCEL\n\n";
+      console.log(mainMenuText);
+      this.mainMenuPrompt();
+    }
+  
+    mainMenuPrompt() {
+      while (true) {
+        const mainPrompt = prompt("Select option? [1, 2, 3, 0]:\t");
+        if (mainPrompt == 1) {
+          // this.playGame();
+          return;
+        } else if (mainPrompt == 2) {
+          // this.doAdmin();
+          return;
+        } else if (mainPrompt == 3) {
+          this.printHighScores();
+          return;
+        } else if (mainPrompt == 0) {
+          console.log("See you again soon! ");
+          return;
+        }
+      }
+    }
+
+    main() {
+      this.initialiseGame();
+      this.printMainMenu();
+    }
 }
 
 module.exports = Game;
