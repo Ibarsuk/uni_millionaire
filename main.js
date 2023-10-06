@@ -96,7 +96,7 @@ class Game {
       let choiceC = prompt("Enter choice c: ");
       let choiceD = prompt("Enter choice d: ");
       let answer = prompt("Enter which is answer [0],[1],[2],[3] : ");
-      insertQuestion(theQ, [choiceA, choiceB, choiceC, choiceD], answer);
+      this.insertQuestion(theQ, [choiceA, choiceB, choiceC, choiceD], answer);
     }
 
     removeQuestion(getNumberToDelete) {
