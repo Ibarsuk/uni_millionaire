@@ -34,6 +34,39 @@ class Game {
       }
     }
 
+    printHighScores() {
+      const data = fs.readFileSync(this.highScoresFileString, "utf-8");
+      const scoresJSON = JSON.parse(data);
+      console.log("High Scores:");
+      let i = 0;
+      scoresJSON.forEach((user) => {
+        if (i++ < 5) {
+          console.log(user.name + "\t" + user.score);
+        }
+      });
+    }
+  
+    setHighScores(pName, pScore) {
+      const data = fs.readFileSync(this.highScoresFileString, "utf-8");
+      const scores = JSON.parse(data);
+        for (let i = 0; i < 5; i++) {
+          const user = scores[i];
+          if (pScore > user.score) {
+            console.log("Congrats, you made the Leaderboard!");
+            scores.push({
+              name: pName,
+              score: pScore,
+            });
+            scores.sort(function (a, b) {
+              return parseFloat(b.score) - parseFloat(a.score);
+            });
+            scores.pop(); // pop the 6th score - redundant
+            fs.writeFileSync(this.highScoresFileString, JSON.stringify(scores));
+            break;
+          }
+        }
+    }
+
     listQuestionsAndAnswers() {
       JSON.parse(fs.readFileSync(this.fileString, "utf-8")).forEach((question) =>
         console.log(question.question + "\t" + question.content[question.correct])
