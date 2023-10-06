@@ -60,7 +60,7 @@ class Game {
             scores.sort(function (a, b) {
               return parseFloat(b.score) - parseFloat(a.score);
             });
-            scores.pop(); // pop the 6th score - redundant
+            scores.pop();
             fs.writeFileSync(this.highScoresFileString, JSON.stringify(scores));
             break;
           }
@@ -77,6 +77,45 @@ class Game {
       JSON.parse(fs.readFileSync(this.fileString, "utf-8")).forEach((question) =>
         console.log(question.question)
       );
+    }
+
+    insertQuestion(question, content, answer) {
+      const data = fs.readFileSync(this.fileString, "utf-8");
+      const questions = JSON.parse(data);
+      questions.push({
+        question: question,
+        content: content,
+        correct: answer,
+      });
+      fs.writeFileSync(this.fileString, JSON.stringify(questions));
+    }
+
+    addQuestion() {
+      let theQ = prompt("Enter your question: ");
+      let choiceA = prompt("Enter choice a: ");
+      let choiceB = prompt("Enter choice b: ");
+      let choiceC = prompt("Enter choice c: ");
+      let choiceD = prompt("Enter choice d: ");
+      let answer = prompt("Enter which is answer [0],[1],[2],[3] : ");
+      insertQuestion(theQ, [choiceA, choiceB, choiceC, choiceD], answer);
+    }
+
+    removeQuestion(getNumberToDelete) {
+      const data = fs.readFileSync(this.fileString, "utf-8");
+      const questions = JSON.parse(data);
+      let deleteNumber = getNumberToDelete(questions);
+      questions.splice(deleteNumber, 1);
+      fs.writeFileSync(this.fileString, JSON.stringify(questions));
+    }
+  
+    deleteQuestion() {
+      this.removeQuestion((questions) => {
+        questions.forEach((q, i) => console.log(i + "\t" + q.question));
+        let deleteNumber = prompt(
+          "Which number question do you wish to delete [0],[1],[2],...?"
+        );
+        return deleteNumber;
+      });
     }
 
     getQuestionHint() {
