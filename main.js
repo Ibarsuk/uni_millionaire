@@ -29,7 +29,6 @@ class Game {
       const data = fs.readFileSync(this.highScoresFileString, "utf-8");
       const scoresJSON = JSON.parse(data);
       if (scoresJSON == "") {
-        console.log("EMPT");
         fs.writeFileSync(this.highScoresFileString, placeholders);
       }
     }
