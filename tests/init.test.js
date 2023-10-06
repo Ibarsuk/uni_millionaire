@@ -1,4 +1,4 @@
-const Game = require("../main-copy");
+const Game = require("../main");
 const fs = require("fs").promises;
 const Util = require("../util");
 
